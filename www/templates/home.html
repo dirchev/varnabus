@@ -1,0 +1,45 @@
+<ion-view title="Начало" cache-view="false">
+  <ion-content>
+
+    <div ng-show="settings.showSavedStops">
+      <div class="card" ng-hide="savedStops.length">
+        <div class="item">
+          Няма запазени спирки.
+        </div>
+      </div>
+
+      <div ng-show="savedStops.length" class="list card">
+        <div class="item item-button-right">
+          <b>Запазени спирки</b>
+          <a ng-show="savedStops.length >= 2 " class="button button-outline ion-navicon button-positive" ng-click="reorder = !reorder"></a>
+        </div>
+        <div class="item item-body no-padding" ng-show="savedStops.length">
+          <ion-list class="no-margin" show-reorder="reorder">
+              <ion-item ng-repeat="stop in savedStops track by $index"
+                        item="stop"
+                        ui-sref="stop({stopId: stop.id, stopName: stop.text})" class="item-remove-animate">
+                {{ stop.text }}
+                <ion-reorder-button class="ion-navicon" on-reorder="moveStop(stop, $fromIndex, $toIndex)"></ion-reorder-button>
+              </ion-item>
+          </ion-list>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card" ng-show="settings.showNearStops">
+      <div class="item item-button-right item-icon-right">
+        <b>Спирки наоколо</b>
+        <a class="button button-outline button-positive ion-loop" ng-click="getNearStops()"></a>
+      </div>
+      <div class="item" ng-hide="nearStops.length">
+        Не са намерени спирки наоколо.
+      </div>
+      <ion-list ng-show="nearStops.length">
+          <ion-item ng-repeat="stop in nearStops" ui-sref="stop({stopId: stop.id, stopName: stop.text})" class="item-remove-animate">
+            {{ stop.text }}
+          </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>

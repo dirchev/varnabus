@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<widget id="me.dirchev.varnabus2" version="0.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+  <name>Varna Bus</name>
+  <description>
+    Varna Bus is and app, where people can find useful information such as real-time bus schedules.
+  </description>
+  <author email="dimitar.mirchev96@gmail.com" href="http://dirchev.me/">
+      Dimitar Mirchev
+  </author>
+  <content src="index.html"/>
+  <access origin="*"/>
+  <preference name="webviewbounce" value="false"/>
+  <preference name="UIWebViewBounce" value="false"/>
+  <preference name="DisallowOverscroll" value="true"/>
+  <preference name="BackupWebStorage" value="none"/>
+</widget>

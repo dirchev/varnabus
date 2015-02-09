@@ -1,0 +1,63 @@
+<ion-view title="{{stop.text}}" cache-view="false">
+  <ion-nav-buttons side="right">
+    <button ng-click="saveStop()" ng-hide="stop.saved" ng-click="" class="button button-clear "><i class="icon ion-android-star-outline"></i></button>
+    <button ng-click="deleteStop()" ng-show="stop.saved" ng-click="" class="button button-clear "><i class="icon ion-android-star"></i></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <div ng-hide="devices.length" class="card">
+      <div class="item item-text-wrap">
+        Няма автобуси, пътуващи към тази спирка.
+      </div>
+    </div>
+    <div class="list">
+      <a
+      class="item no-padding"
+      ng-repeat="device in devices"
+      ui-sref="device({deviceId : device.device})">
+
+        <div ng-if="device.arriveIn[0] !== '-' && device.distanceLeft[0] !== '-'" class="col-plan col-plan-left">
+          <div class="plan-duration">след</div>
+          <div class="plan-date">{{device.arriveIn}}</div>
+        </div>
+        <div ng-if="device.arriveIn[0] === '-' && device.state !== 1" class="col-plan col-plan-left">
+          <div class="plan-duration">след</div>
+          <div class="plan-date">{{device.distanceLeft}}</div>
+        </div>
+        <div ng-if="device.state === 1" class="col-plan col-plan-left">
+          <div class="plan-duration">на спирката</div>
+        </div>
+        <div ng-if="device.state === 2" class="col-plan col-plan-left">
+          <div class="plan-duration">заминал</div>
+        </div>
+
+        <div class="col-plan col-plan-line" ng-style="{backgroundColor:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}"></div>
+
+        <div class="col-plan col-plan-right">
+          <div class="plan-info-title">
+            № {{device.line}}
+            <i ng-show="device.warning"
+               ng-style="{color:device.warning === 1 ? '#f1c40f' : device.warning === 2 ? '#f39c12' : '#ff0000'}"
+               class="icon ion-android-warning">
+            </i>
+          </div>
+          <div class="plan-info">
+            <i class="icon ion-clock"></i>{{device.arriveTime}}
+            <span ng-style="{color:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}">{{device.delay}}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="card" ng-repeat="(bus,times) in schedule">
+      <div class="item item-divider" >
+        Разписание за №{{bus}}
+      </div>
+      <div class="item item-text-wrap">
+        <span ng-repeat="time in times">
+          {{time.text}}
+        </span>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>

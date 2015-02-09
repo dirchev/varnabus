@@ -1,0 +1,13 @@
+<ion-view title="Спирки">
+  <ion-content style="padding-bottom: 40px;">
+    <div class="list">
+      <label class="item item-input">
+        <input type="text" placeholder="Търси спирка" ng-model="searchStop">
+      </label>
+      <a ng-if="searchStop" ng-repeat="stop in stops | filter : searchStop" ui-sref="stop({stopId: stop.id, stopName: stop.text})" class="item">
+        {{stop.text}}
+      </a>
+    </div>
+
+  </ion-content>
+</ion-view>
