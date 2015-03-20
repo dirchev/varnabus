@@ -20,6 +20,10 @@ app.config(function(localStorageServiceProvider){
   localStorageServiceProvider.setPrefix('VarnaBus2');
 });
 
+app.config(function($ionicConfigProvider){
+  $ionicConfigProvider.backButton.text('').icon('ion-arrow-left-c').previousTitleText(false);
+});
+
 app.run(function($rootScope, StopService){
   document.addEventListener("pause", function(){
       $rootScope.inBackground = true;
@@ -30,7 +34,7 @@ app.run(function($rootScope, StopService){
 
   StopService.get().warnings().success(function(data){
     var warnings = [];
-    for(i in data){
+    for(var i in data){
       warnings[i] = data[i].level;
       StopService.pushWarnings(warnings);
     }
@@ -40,7 +44,7 @@ app.run(function($rootScope, StopService){
     if(!$rootScope.inBackground){
       StopService.get().warnings().success(function(data){
         var warnings = [];
-        for(i in data){
+        for(var i in data){
           warnings[i] = data[i].level;
         }
         StopService.pushWarnings(warnings);
@@ -56,8 +60,8 @@ app.run(function(localStorageService, $http){
     $http.get("http://varnatraffic.com/Ajax/GetStations").success(function(data){
       localStorageService.set('stops', data);
     });
-  };
-})
+  }
+});
 
 app.config(function($stateProvider, $urlRouterProvider){
   $stateProvider
@@ -75,6 +79,18 @@ app.config(function($stateProvider, $urlRouterProvider){
       url: '/stop/:stopId?stopName',
       controller: 'StopCtrl',
       templateUrl: 'templates/stop.html'
+    })
+    .state('stop.livedata', {
+      url: '/',
+      views: {
+        "stopContent": { templateUrl: "templates/stop-livedata.html" }
+      }
+    })
+    .state('stop.timetable', {
+      url: '/timetable',
+      views: {
+        "stopContent": { templateUrl: "templates/stop-timetable.html" }
+      }
     })
     .state('device', {
       url: '/device/:deviceId',
@@ -96,7 +112,12 @@ app.config(function($stateProvider, $urlRouterProvider){
       controller: 'ScannerCtrl',
       templateUrl: 'templates/scanner.html'
     })
+    .state('stoptimetable', {
+      url: '/stoptimetable/:stopId?stopName',
+      controller: 'StopTimetableCtrl',
+      templateUrl: 'templates/stop-timetable.html'
+    });
 
 
   $urlRouterProvider.otherwise("/home");
-})
+});

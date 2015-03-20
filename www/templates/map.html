@@ -20,13 +20,19 @@
       <div class="item item-input">
         <input ng-keyup="updateMap(filtered[0])" type="text" ng-model="search" placeholder="Търси спирка">
       </div>
-      <div ng-if="search">
-        <a ui-sref="stop({stopId: stop.id, stopName: stop.text})" class="item" ng-repeat="stop in filtered">
-          {{stop.text}}
-        </a>
-      </div>
       <div ng-hide="search" class="item" ng-click="findMe()">
         Намери ме
+      </div>
+    </div>
+    <div class="list" ng-if="search">
+        <ion-item
+          style="width:100%;"
+          collection-repeat="stop in filtered"
+          collection-item-width="'100%'"
+          collection-item-height="'53'"
+          ui-sref="stop({stopId: stop.id, stopName: stop.text})">
+          {{stop.text}}
+        </ion-item>
       </div>
     </div>
 

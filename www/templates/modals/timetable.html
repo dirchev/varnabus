@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <button class="button button-icon icon ion-arrow-left-c" ng-click="closeTimetable()"></button>
+    <h1 class="title">Разписание за №{{timetable.bus}}</h1>
+  </ion-header-bar>
+  <ion-content padding="true">
+    <div class="card">
+      <div class="item item-text-wrap">
+        Разписание за <b>№{{timetable.bus}}</b> спирка <b>{{stop.text}}</b>
+      </div>
+    </div>
+    <div class="card">
+      <div class="item item-text-wrap">
+        <span ng-repeat="time in timetable">
+          {{time.text}}
+        </span>
+      </div>
+    </div>
+</ion-modal-view>

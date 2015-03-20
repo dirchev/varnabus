@@ -13,7 +13,7 @@ app.controller('ScannerCtrl', function($scope, $cordovaBarcodeScanner, $ionicPop
          var id = link.substr(remove.length);
          var allStops = StopService.get().all();
          var found = false;
-         for(index in allStops){
+         for(var index in allStops){
            if(allStops[index].id == id){
              var stop = allStops[index];
              found = true;
@@ -39,7 +39,7 @@ app.controller('ScannerCtrl', function($scope, $cordovaBarcodeScanner, $ionicPop
          template: 'Не успяхме да сканираме нищо.'
        });
      });
-  }
+  };
   $scope.scan();
 
-})
+});

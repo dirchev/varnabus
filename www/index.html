@@ -37,6 +37,7 @@
     <script src="js/controllers/map.js"></script>
     <script src="js/controllers/tutorial.js"></script>
     <script src="js/controllers/scanner.js"></script>
+    <script src="js/controllers/stop-timetable.js"></script>
 
     <!-- Services -->
     <script src="js/services/stopService.js"></script>
@@ -46,32 +47,38 @@
   </head>
   <body ng-app="VarnaBus">
     <ion-nav-bar class="bar-positive text-center">
-      <ion-nav-back-button class="button button-icon icon ion-arrow-left-b">
+      <ion-nav-back-button class="button-clear">
+        <i class="button button-icon icon ion-arrow-left-c"></i>
       </ion-nav-back-button>
     </ion-nav-bar>
 
     <ion-nav-view></ion-nav-view>
 
-    <div class="tabs tabs-stripped tabs-positive tabs-icon-only">
+    <div class="tabs tabs-stripped tabs-positive tabs-icon-top">
 
       <a class="tab-item" ui-sref="home">
         <i class="icon ion-home"></i>
+        Начало
       </a>
 
       <a class="tab-item" ui-sref="stops">
         <i class="icon ion-flag"></i>
+        Спирки
       </a>
 
-      <a class="tab-item" ui-sref="scanner">
+      <!-- <a class="tab-item" ui-sref="scanner">
         <i class="icon ion-qr-scanner"></i>
-      </a>
+        Сканирай
+      </a> -->
 
       <a class="tab-item" ui-sref="map">
         <i class="icon ion-map"></i>
+        Карта
       </a>
 
       <a class="tab-item" ui-sref="settings">
         <i class="icon ion-android-settings"></i>
+        Настройки
       </a>
 
     </div>

@@ -1,0 +1,17 @@
+<div class="card">
+  <div class="item item-text-wrap text-center">
+    <p>
+      Разписание на автобусите към спирка {{stop.text}}
+    </p>
+  </div>
+</div>
+<div class="card" ng-repeat="(bus,times) in schedule">
+  <div class="item item-divider" >
+    №{{bus}}
+  </div>
+  <div class="item item-text-wrap">
+    <span ng-repeat="time in times">
+      {{time.text}}
+    </span>
+  </div>
+</div>
