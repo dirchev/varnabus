@@ -18,11 +18,11 @@ app.factory("StopService", function($http, localStorageService){
         warnings: function(){
           return $http.get("https://varnabus-web-scrapping.herokuapp.com/api/warning/");
         }
-      }
+      };
     },
     isSaved: function(id){
       var favStops = localStorageService.get('savedStops') || [];
-      for(i in favStops){
+      for(var i in favStops){
         if(favStops[i].id === id){
           return true;
         }

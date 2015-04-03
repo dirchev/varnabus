@@ -19,8 +19,8 @@ app.controller('HomeCtrl', function($scope, StopService, localStorageService, Se
   $scope.closeTutorial = function(){
     $scope.modal.hide();
     localStorageService.set('tutorial', 'true');
-  }
-  
+  };
+
   $scope.savedStops = localStorageService.get('savedStops') || [];
   $scope.reorder = false;
 

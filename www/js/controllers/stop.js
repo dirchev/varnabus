@@ -1,4 +1,5 @@
 app.controller('StopCtrl', function($scope, $stateParams, StopService, $state, $location, $rootScope, SettingsService){
+  $scope.loading = true;
   if($location.path() === '/stop/'+ $stateParams.stopId){
     $state.go('stop.livedata', $stateParams, {reload: false});
     $scope.view = 'livedata';
@@ -15,16 +16,11 @@ app.controller('StopCtrl', function($scope, $stateParams, StopService, $state, $
     id: $stateParams.stopId,
     text : $stateParams.stopName
   };
+
   $scope.stop.saved = StopService.isSaved(stopId);
   StopService.get().devices(stopId).success(function(data){
     $scope.devices = data.liveData;
     $scope.schedule = data.schedule;
-    warnings = StopService.getWarnings();
-    if(warnings){
-      for(var i in $scope.devices){
-        $scope.devices[i].warning = warnings[$scope.devices[i].device];
-      }
-    }
   });
 
   var LiveData = function(){
@@ -32,6 +28,7 @@ app.controller('StopCtrl', function($scope, $stateParams, StopService, $state, $
       StopService.get().devices(stopId).success(function(data){
         $scope.devices = data.liveData;
         $scope.schedule = data.schedule;
+        $scope.loading = false;
       });
     }
   };

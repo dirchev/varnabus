@@ -1,46 +1,55 @@
-<div ng-hide="devices.length" class="card">
-  <div class="item item-text-wrap">
-    Няма автобуси, пътуващи към тази спирка.
+<div ng-show="loading">
+  <div class="card">
+    <div class="item item-text-wrap">
+      Зареждане...
+    </div>
   </div>
 </div>
-<div ng-show="devices.length" class="list">
-  <ion-item
-    style="width: 100%;"
-    class="item no-padding"
-    collection-repeat="device in devices"
-    collection-item-width="'100%'"
-    collection-item-height="'81'"
-    ui-sref="device({deviceId : device.device})">
+<div ng-hide="loading">
+  <div ng-hide="devices.length" class="card">
+    <div class="item item-text-wrap">
+      Няма автобуси, пътуващи към тази спирка.
+    </div>
+  </div>
+  <div ng-show="devices.length" class="list">
+    <ion-item
+      style="width: 100%;"
+      class="item no-padding"
+      collection-repeat="device in devices"
+      collection-item-width="'100%'"
+      collection-item-height="'81'"
+      ui-sref="device({deviceId : device.device})">
 
-    <div ng-if="device.arriveIn[0] !== '-' && device.distanceLeft[0] !== '-'" class="col-plan col-plan-left">
-      <div class="plan-duration">след</div>
-      <div class="plan-date">{{device.arriveIn}}</div>
-    </div>
-    <div ng-if="device.arriveIn[0] === '-' && device.state !== 1" class="col-plan col-plan-left">
-      <div class="plan-duration">след</div>
-      <div class="plan-date">{{device.distanceLeft}}</div>
-    </div>
-    <div ng-if="device.state === 1" class="col-plan col-plan-left">
-      <div class="plan-duration">на спирката</div>
-    </div>
-    <div ng-if="device.state === 2" class="col-plan col-plan-left">
-      <div class="plan-duration">заминал</div>
-    </div>
-
-    <div class="col-plan col-plan-line" ng-style="{backgroundColor:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}"></div>
-
-    <div class="col-plan col-plan-right">
-      <div class="plan-info-title">
-        № {{device.line}}
-        <i ng-show="device.warning"
-           ng-style="{color:device.warning === 1 ? '#f1c40f' : device.warning === 2 ? '#f39c12' : '#ff0000'}"
-           class="icon ion-android-warning">
-        </i>
+      <div ng-if="device.arriveIn[0] !== '-' && device.distanceLeft[0] !== '-'" class="col-plan col-plan-left">
+        <div class="plan-duration">след</div>
+        <div class="plan-date">{{device.arriveIn}}</div>
       </div>
-      <div class="plan-info">
-        <i class="icon ion-clock"></i>{{device.arriveTime}}
-        <span ng-style="{color:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}">{{device.delay}}</span>
+      <div ng-if="device.arriveIn[0] === '-' && device.state !== 1" class="col-plan col-plan-left">
+        <div class="plan-duration">след</div>
+        <div class="plan-date">{{device.distanceLeft}}</div>
       </div>
-    </div>
-  </ion-item>
+      <div ng-if="device.state === 1" class="col-plan col-plan-left">
+        <div class="plan-duration">на спирката</div>
+      </div>
+      <div ng-if="device.state === 2" class="col-plan col-plan-left">
+        <div class="plan-duration">заминал</div>
+      </div>
+
+      <div class="col-plan col-plan-line" ng-style="{backgroundColor:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}"></div>
+
+      <div class="col-plan col-plan-right">
+        <div class="plan-info-title">
+          № {{device.line}}
+          <i ng-show="device.warning"
+             ng-style="{color:device.warning === 1 ? '#f1c40f' : device.warning === 2 ? '#f39c12' : '#ff0000'}"
+             class="icon ion-android-warning">
+          </i>
+        </div>
+        <div class="plan-info">
+          <i class="icon ion-clock"></i>{{device.arriveTime}}
+          <span ng-style="{color:device.delay[0] === '+' ? '#ff0000' : '#00ff00'}">{{device.delay}}</span>
+        </div>
+      </div>
+    </ion-item>
+  </div>
 </div>

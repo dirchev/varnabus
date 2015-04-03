@@ -40,18 +40,6 @@ app.run(function($rootScope, StopService){
     }
   });
 
-  setInterval(function(){
-    if(!$rootScope.inBackground){
-      StopService.get().warnings().success(function(data){
-        var warnings = [];
-        for(var i in data){
-          warnings[i] = data[i].level;
-        }
-        StopService.pushWarnings(warnings);
-      });
-    }
-  }, 10000);
-
 });
 
 app.run(function(localStorageService, $http){
