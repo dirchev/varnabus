@@ -1,7 +1,33 @@
 {
   "name": "varnabus2",
-  "private": "true",
+  "private": true,
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.0.0-beta.14"
+  },
+  "version": "0.0.0",
+  "homepage": "https://github.com/dirchev/varnabus",
+  "authors": [
+    "Dimitar Mirchev <dimitar.mirchev96@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "www/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-local-storage": "~0.2.2",
+    "angular-touch": "~1.4.0",
+    "ngCordova": "~0.1.15-alpha",
+    "ngmap": "~1.7.10"
+  },
+  "resolutions": {
+    "angular-local-storage": "~0.2.2",
+    "ngmap": "~1.7.10",
+    "angular-touch": "~1.4.0",
+    "angular": "1.4.0"
   }
 }
