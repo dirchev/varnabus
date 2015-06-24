@@ -1,0 +1,19 @@
+<ion-view title="Настройки" cache-view="false">
+  <ion-content class="padding">
+    <div class="card">
+      <div class="item item-divider text-center">
+        Общи настройки
+      </div>
+      <ion-toggle ng-model="settings.showSavedStops" toggle-class="toggle-positives">Любими спирки</ion-toggle>
+      <ion-toggle ng-model="settings.showNearStops" toggle-class="toggle-positives">Спирки наблизо</ion-toggle>
+      <div class="item range range-positive">
+        Обновяване през
+        1s
+        <input type="range" name="volume" min="1000" max="5000" ng-model="settings.updateFrequency">
+        5s
+      </div>
+    </div>
+    
+    <a ui-sref="index" class="button button-light button-block">Начален урок</a>
+  </ion-content>
+</ion-view>

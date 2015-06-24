@@ -8,12 +8,11 @@ app.factory("SettingsService", function(localStorageService, $http){
       };
     },
     set: function(settings){
-      localStorageService.set('settings', JSON.stringify(settings));
+      localStorageService.set('settings', settings);
     },
     sendBug: function(bug){
       console.log(bug);
       return $http.post('https://dirchev-node-app.herokuapp.com/api/feedback', bug);
-    },
-    warning : true
+    }
   }
 });

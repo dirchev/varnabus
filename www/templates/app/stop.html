@@ -1,0 +1,26 @@
+<ion-view title="{{stop.text}}" cache-view="false" class="no-padding">
+  <ion-nav-buttons side="right">
+    <button ng-click="saveStop()" ng-hide="stop.saved" ng-click="" class="button button-clear "><i class="icon ion-android-star-outline"></i></button>
+    <button ng-click="deleteStop()" ng-show="stop.saved" ng-click="" class="button button-clear "><i class="icon ion-android-star"></i></button>
+  </ion-nav-buttons>
+  
+  <ion-content has-bouncing="true" class="has-header has-footer">
+    <div ui-view="stopContent" style="padding-top: 50px; padding-bottom: 10px;">
+    </div>
+  </ion-content>
+  
+  <ion-tabs class="tabs-top tabs-background-positive tabs-color-light tabs-icon-left">
+    <ion-tab
+      ui-sref="app.stop.livedata({stopId: stop.id})"
+      ui-sref-opts="{reload: true}"
+      icon="ion-clock"
+      title=" Идавщи автобуси">
+    </ion-tab>
+    <ion-tab
+      ui-sref="app.stop.timetable({stopId: stop.id})"
+      ui-sref-opts="{reload: true}"
+      icon="ion-document-text"
+      title=" Разписание">
+    </ion-tab>
+  </ion-tabs>
+</ion-view>

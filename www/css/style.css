@@ -1,3 +1,11 @@
+.pane, .view {
+  background-color: #3381C1;
+}
+
+.slider-pager .slider-pager-page {
+  color: #fff !important;
+}
+
 .text-muted{
   font-size: 14px;
   color: #999999;

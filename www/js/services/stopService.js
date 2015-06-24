@@ -12,18 +12,27 @@ app.factory("StopService", function($http, localStorageService){
         devices : function(stopId){
           return $http.get("http://varnatraffic.com/Ajax/FindStationDevices?stationId=" + stopId);
         },
-        saved: function(callback){
+        saved: function(){
           return localStorageService.get('savedStops') || [];
         },
         warnings: function(){
           return $http.get("https://varnabus-web-scrapping.herokuapp.com/api/warning/");
+        },
+        one: function(id){
+          var stops = localStorageService.get('stops');
+          for(i in stops){
+            if(stops[i].id == id){
+              return stops[i];
+              break;
+            }
+          }
         }
       };
     },
     isSaved: function(id){
       var favStops = localStorageService.get('savedStops') || [];
       for(var i in favStops){
-        if(favStops[i].id === id){
+        if(favStops[i].id == id){
           return true;
         }
       }
@@ -32,11 +41,11 @@ app.factory("StopService", function($http, localStorageService){
     saveStop: function(stop){
       var favStops = localStorageService.get('savedStops') || [];
       favStops.push(stop);
-      localStorageService.set('savedStops', JSON.stringify(favStops));
+      localStorageService.set('savedStops', favStops);
       return true;
     },
     saveStops: function(stops){
-      localStorageService.set('savedStops', JSON.stringify(stops));
+      localStorageService.set('savedStops', stops);
       return true;
     },
     deleteStop: function(id){
@@ -46,7 +55,7 @@ app.factory("StopService", function($http, localStorageService){
           savedStops.splice(index, 1);
         }
       }
-      localStorageService.set('savedStops', JSON.stringify(savedStops));
+      localStorageService.set('savedStops', savedStops);
     },
     pushWarnings: function(data){
       warnings = data;

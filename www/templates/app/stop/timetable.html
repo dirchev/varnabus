@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="item item-text-wrap text-center">
+      Разписание на автобусите към спирка <br> {{stop.text}}
+  </div>
+</div>
+<div class="card" ng-repeat="line in schedule">
+  <div class="item item-text-wrap">
+    <h2><b>№{{line.line}}</b></h2>
+    <span ng-repeat="time in line.data">
+      <a ui-sref="app.device({deviceId:time.device})" ng-show="time.device">{{time.text}}</a>
+      <span ng-hide="time.device">{{time.text}}</span>
+    </span>
+  </div>
+</div>

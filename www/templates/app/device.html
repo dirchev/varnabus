@@ -1,0 +1,65 @@
+<ion-view title="Разписание" cache-view="false">
+  <ion-nav-buttons side="right">
+  </ion-nav-buttons>
+  <ion-content>
+    <div ng-show="loading" class="card">
+      <div class="item item-text-wrap text-center">
+        Зареждане...
+      </div>
+    </div>
+    
+    <!-- First Station-->
+    <div ng-hide="loading" class="card" ui-sref="app.stop.livedata({stopId : state.nextStations[0].id})">
+      <div class="item text-center item-text-wrap">
+        Следваща спирка
+        <h1 style="font-size: 170%;">{{state.nextStations[0].name}}</h1>
+      </div>
+      <div class="item row">
+        <div ng-hide="state.nextStations[0].inRange"
+             ng-if="state.nextStations[0].arriveIn[0] !== '-'"
+             class="col text-muted">
+           след {{state.nextStations[0].arriveIn}}
+         </div>
+        <div ng-hide="state.nextStations[0].inRange"
+             ng-if="state.nextStations[0].arriveIn[0] === '-'"
+             class="col text-muted">
+           {{state.nextStations[0].distanceLeft}}
+         </div>
+        <div ng-show="state.nextStations[0].inRange"
+             class="text-center">
+           на спирката
+        </div>
+        <div ng-hide="state.nextStations[0].inRange"
+             class="col text-right text-muted">
+          {{state.nextStations[0].arriveTime}}
+          <span ng-style="{color:state.nextStations[0].delay[0] === '+' ? '#ff0000' : '#00ff00'}">{{state.nextStations[0].delay}}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Next Stations -->
+    <div ng-hide="loading">
+      <div class="card" ng-repeat="station in state.nextStations" ng-hide="$first">
+        <a ui-sref="app.stop.livedata({stopId : station.id})"class="item item-sharp item-text-wrap text-center" >
+          <h1 style="font-size: 130%;">{{station.name}}</h1>
+          <div class="row text-muted">
+            <div class="col text-left">след {{station.arriveIn}}</div>
+            <div class="col text-right">
+              {{station.arriveTime}}
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- More info -->
+    <div ng-show="info" class="card">
+      <div class="item item-divider text-center">
+        Допълнителна информация
+      </div>
+      <div ng-show="i.value" class="item" ng-repeat="i in info">
+        {{i.text}} : {{i.value}}
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

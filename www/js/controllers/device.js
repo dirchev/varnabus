@@ -2,11 +2,15 @@ app.controller('DeviceCtrl', function($scope, DeviceService, $stateParams, $loca
 
   $scope.settings = SettingsService.get();
   var deviceId = $stateParams.deviceId;
-  $scope.warning = StopService.getWarning(deviceId);
-  $scope.canSendWarning = SettingsService.warning;
-
+  $scope.loading = true;
+  
+  DeviceService.get().stations(deviceId).success(function(data){
+    $scope.state = data;
+    $scope.loading = false;
+  });
+      
   var LiveData = function(){
-    if($location.path() === '/device/'+ deviceId && !$rootScope.inBackground){
+    if($location.path() === '/app/device/'+ deviceId && !$rootScope.inBackground){
       DeviceService.get().stations(deviceId).success(function(data){
         $scope.state = data;
       });
@@ -16,6 +20,6 @@ app.controller('DeviceCtrl', function($scope, DeviceService, $stateParams, $loca
     $scope.info = data;
   });
 
-  LiveData();
   setInterval(LiveData, $scope.settings.updateFrequency);
+  
 });

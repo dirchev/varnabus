@@ -8,7 +8,7 @@ app.controller('MapCtrl', function($scope, StopService, $cordovaGeolocation, $io
   $scope.stops = StopService.get().all();
 
   $scope.selectMapStop = function(e, stop){
-    $state.go('stop', { stopId : stop.id , stopName : stop.name || stop.text});
+    $state.go('app.stop.livedata', { stopId : stop.id });
   };
 
   $scope.findMe = function(){

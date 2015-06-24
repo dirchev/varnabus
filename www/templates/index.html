@@ -1,0 +1,125 @@
+<ion-slide-box style="height: 100%; background-color: #3381C1;" on-slide-changed="slideHasChanged($index)">
+
+  <ion-slide style="height: 100%;" class="padding">
+    <h1 class="text-center" style="margin-top:10px; margin-bottom: 20px; color: white; font-weight: 700;">Здравейте!</h1>
+    
+    <img ng-src="img/logo.png" alt="" style="width: 50%; display:block; max-height:70%; margin: 0 auto; margin-top: 40%;">
+    
+    <div class="card">
+      <div class="item item-text-wrap">
+        Това е Varna Bus. Приложение, което показва автобусите във Варна в реално време, като предлага функции, които ще подобрят Вашето пътуване с градския транспорт в града.
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="item item-text-wrap item-icon-right">
+        Плъзнете наляво <i class="icon ion-chevron-right"></i>
+      </div>
+    </div>
+  </ion-slide>
+
+  <ion-slide ng-repeat="page in pages" style="height: 100%;" class="padding">
+    <h1 class="text-center" style="margin-top:10px; margin-bottom: 20px; color: white; font-weight: 700;">{{page.heading}}</h1>
+    <img ng-show="page.img" ng-src="{{page.img}}" alt="" style="width: auto; display:block; max-height:65%; margin: 0 auto; border: solid 4px white; border-radius: 5px;">
+    <div class="card">
+      <div class="item item-text-wrap">
+        {{page.text}}
+      </div>
+    </div>
+  </ion-slide>
+
+  <!-- Set-->
+  <ion-slide style="height: 100%;" class="padding">
+    <h1 ng-hide="stopName" class="text-center" style="margin-top:10px; margin-bottom: 20px; color: white; font-weight: 700;">Твоите любими спирки</h1>
+    <div class="card" ng-hide="stops">
+      <div class="item item-text-wrap text-center">
+        Спирките не могат да бъдат заредени. <br>Може би нямате интернет?
+      </div>
+    </div>
+    <div ng-show="stops">
+      <div ng-hide="stopName" class="card">
+        <div class="item item-text-wrap text-center">
+          Потърси спирките, които изполваш най-често. Натисни върху тях, за да бъдат на 1 клик разстояние.
+        </div>
+      </div>
+      <div class="fade card">
+        <label class="item item-input">
+          <input type="text" id="favStop" ng-model="stopName" placeholder="име на спирка">
+        </label>
+      </div>
+      
+      <div class="card" ng-show="stopName">
+        <a ng-click="saveStop(stop);" class="item" ng-repeat="stop in (filteredStops = (stops | filter : stopName | limitTo: 8))">
+          {{stop.text}}
+        </a>
+        <div class="item text-center" ng-show="stopName && filteredStops.length === 0">Няма намерени спирки.</div>
+      </div>
+      
+      <div class="card">
+        <div class="item item-text-wrap">
+          Запазени спирки: {{savedStops.length}}
+        </div>
+        <div ng-repeat="stop in savedStops" class="item item-text-wrap">
+          {{stop.text}}
+        </div>
+      </div>
+    </div>
+  </ion-slide>
+  
+  <!-- Set refresh rate -->
+  <ion-slide style="height: 100%;" class="padding">
+    <h1 class="text-center" style="margin-top:10px; margin-bottom: 20px; color: white; font-weight: 700;">Данни в реално време</h1>
+      
+    <div class="card">
+      <div class="item item-text-wrap text-center">
+        Във Varna Bus, данните за идващите автобуси се обновяват посноянно. 
+        Тук може да зададеш колко често да се опреснява информацията на твоя телефон. 
+      </div>
+    </div>
+    <div class="card text-center">
+      <a ng-show="settings.updateFrequency < 5000" class="item balanced" ng-click="settings.updateFrequency = settings.updateFrequency + 500">
+        <i class="icon ion-chevron-up"></i>
+      </a>
+      <div class="item item-text-wrap">
+        Опресняване през {{settings.updateFrequency / 1000}} секунди.
+      </div>
+      <a ng-show="settings.updateFrequency > 1000" class="item balanced" ng-click="settings.updateFrequency = settings.updateFrequency - 500">
+        <i class="icon ion-chevron-down"></i>
+      </a>
+    </div>
+    
+    <div class="card">
+      <div class="item text-center item-text-wrap">
+        *Колкото по-малък е периодът на опреснение, толкова повече интернет ще изразходва.
+      </div>
+    </div>
+  </ion-slide>
+  
+  <ion-slide style="height: 100%;" class="padding">
+    <h1 ng-hide="stopName" class="text-center" style="margin-top:10px; margin-bottom: 20px; color: white; font-weight: 700;">Готов си!</h1>
+    
+    <div class="card">
+      <div class="item item-text-wrap text-center">
+        Това е краят на началния урок. Пожелавам ти приятно ползване на Varna Bus.
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="item item-text-wrap">
+        <h2>При проблем</h2>
+        Ако възникне проблем, въпрос или идея за бъдещото развитие на Varna Bus, може да споделиш на email: <b>dimitar.mirchev96@gmail.com</b>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="item item-text-wrap">
+        Не забравяй да посетиш <a href="http://varnabus.com">varnabus.com</a>, където може да направиш дарение :)
+      </div>
+    </div>
+    
+    <a ng-click="closeTutorial()" class="button button-light button-block" >Към приложението</a>
+  </ion-slide>
+  
+</ion-slide-box>
+
+  

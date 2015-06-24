@@ -9,9 +9,6 @@ app.factory("DeviceService", function($http){
           return $http.get('http://varnabus-web-scrapping.herokuapp.com/api/busInfo/' + id);
         }
       };
-    },
-    sendWarning: function(device){
-      return $http.post("https://varnabus-web-scrapping.herokuapp.com/api/warning/", {bus: device});
     }
   };
 });

@@ -32,14 +32,6 @@ app.run(function($rootScope, StopService){
       $rootScope.inBackground = false;
   }, false);
 
-  StopService.get().warnings().success(function(data){
-    var warnings = [];
-    for(var i in data){
-      warnings[i] = data[i].level;
-      StopService.pushWarnings(warnings);
-    }
-  });
-
 });
 
 app.run(function(localStorageService, $http){
@@ -51,61 +43,129 @@ app.run(function(localStorageService, $http){
   }
 });
 
+app.config(function($ionicConfigProvider) {
+  $ionicConfigProvider.views.transition('ios');
+});
+
+app.run(function($ionicPlatform, $ionicHistory, $ionicPopup, $state, localStorageService){
+  $ionicPlatform.registerBackButtonAction(function (event) {
+    if($ionicHistory.currentStateName() == "index"){
+       var confirmPopup = $ionicPopup.confirm({
+         title: 'Изход от начален урок',
+         template: 'Сигурен ли си че искаш да излезеш от началния урок? Той ще бъде винаги наличен в менюто "Настройки".',
+         okText: "Изход",
+         cancelText: "Отказ"
+       });
+       confirmPopup.then(function(res) {
+         if(res) {
+           localStorageService.set('tutorial', true);
+           $state.go('app.home');
+         } else {
+           // nothing
+         }
+       });
+    }
+    else {
+      $ionicHistory.goBack();
+    }
+  }, 100);
+});
+
 app.config(function($stateProvider, $urlRouterProvider){
+  $urlRouterProvider.when('/app/stop/{stopId}', '/app/stop/{stopId}/livedata');
   $stateProvider
-    .state('home', {
-      url: '/home',
-      controller: 'HomeCtrl',
-      templateUrl: 'templates/home.html'
-    })
-    .state('stops', {
-      url: '/stops',
-      controller: 'StopsCtrl',
-      templateUrl: 'templates/stops.html'
-    })
-    .state('stop', {
-      url: '/stop/:stopId?stopName',
-      controller: 'StopCtrl',
-      templateUrl: 'templates/stop.html'
-    })
-    .state('stop.livedata', {
+    // tutorial state
+    .state('index', {
       url: '/',
-      views: {
-        "stopContent": { templateUrl: "templates/stop-livedata.html" }
-      }
+      controller: 'TutorialCtrl',
+      templateUrl: 'templates/index.html'
     })
-    .state('stop.timetable', {
-      url: '/timetable',
-      views: {
-        "stopContent": { templateUrl: "templates/stop-timetable.html" }
-      }
+    // app states
+    .state('app', {
+      abstract : true,
+      url: '/app',
+      templateUrl: 'templates/app.html'
     })
-    .state('device', {
-      url: '/device/:deviceId',
-      controller: 'DeviceCtrl',
-      templateUrl: 'templates/device.html'
-    })
-    .state('settings', {
-      url: '/settings',
-      controller: 'SettingsCtrl',
-      templateUrl: 'templates/settings.html'
-    })
-    .state('map', {
-      url: '/map',
-      controller: 'MapCtrl',
-      templateUrl: 'templates/map.html'
-    })
-    .state('scanner', {
-      url: '/scanner',
-      controller: 'ScannerCtrl',
-      templateUrl: 'templates/scanner.html'
-    })
-    .state('stoptimetable', {
-      url: '/stoptimetable/:stopId?stopName',
-      controller: 'StopTimetableCtrl',
-      templateUrl: 'templates/stop-timetable.html'
-    });
+      .state('app.home', {
+        url: '/home',
+        views: {
+          'page': {
+            controller: 'HomeCtrl',
+            templateUrl: 'templates/app/home.html'
+          }
+        }
+      })
+      .state('app.stops', {
+        url: '/stops',
+        views: {
+          'page': {
+            controller: 'StopsCtrl',
+            templateUrl: 'templates/app/stops.html'
+          }
+        }
+      })
+      .state('app.stop', {
+        url: '/stop/:stopId?stopName',
+        views: {
+          'page': {
+            controller: 'StopCtrl',
+            templateUrl: 'templates/app/stop.html'
+          }
+        }
+      })
+        .state('app.stop.livedata', {
+          url: '/livedata',
+          views: {
+            'stopContent': {
+              templateUrl: 'templates/app/stop/livedata.html'
+            }
+          }
+        })
+        .state('app.stop.timetable', {
+          url: '/timetable',
+          views: {
+            'stopContent': {
+              templateUrl: 'templates/app/stop/timetable.html'
+            }
+          }
+        })
+      .state('app.device', {
+        url: '/device/:deviceId',
+        views: {
+          'page': {
+            controller: 'DeviceCtrl',
+            templateUrl: 'templates/app/device.html'
+          }
+        }
+      })
+      .state('app.settings', {
+        url: '/settings',
+        views: {
+          'page': {
+            controller: 'SettingsCtrl',
+            templateUrl: 'templates/app/settings.html'
+          }
+        }
+      })
+      .state('app.map', {
+        url: '/map',
+        views: {
+          'page': {
+            controller: 'MapCtrl',
+            templateUrl: 'templates/app/map.html'
+          }
+        }
+      })
+      .state('app.scanner', {
+        url: '/scanner', 
+        views: {
+          'page': {
+            controller: 'ScannerCtrl',
+           templateUrl: 'templates/app/scanner.html'
+          }
+        }
+      });
 
 
-  $urlRouterProvider.otherwise("/home");
+  $urlRouterProvider.otherwise("/app/home");
 });

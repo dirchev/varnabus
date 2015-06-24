@@ -1,0 +1,36 @@
+<ion-view title="Спирки">
+  <ion-content style="padding-bottom: 40px;">
+    <div class="card">
+      <label class="item item-input">
+        <input type="text" placeholder="въведи име на спирка" ng-model="searchStop">
+      </label>
+    </div>
+    
+    <div class="card" ng-hide="searchStop">
+      <div class="item item-text-wrap text-center">
+        Търсене на спирка по име.
+      </div>
+    </div>
+    
+    <div class="card" ng-show="searchStop && filteredStops.length == 0">
+      <div class="item item-text-wrap text-center">
+        Няма намерени спирки.
+      </div>
+    </div>
+    
+    <div
+      ng-show="searchStop"
+      class="card" 
+      style="width:95%; margin: 10px auto; left:2.5%;"
+      collection-repeat="stop in (filteredStops = (stops | filter : searchStop | limitTo: 8))"
+      collection-item-width="'95%'"
+      collection-item-height="'60'">
+      
+      <ion-item        
+        ui-sref="app.stop.livedata({stopId: stop.id})">
+        {{stop.text}}
+      </ion-item>
+    </div>
+
+  </ion-content>
+</ion-view>

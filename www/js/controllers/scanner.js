@@ -17,7 +17,7 @@ app.controller('ScannerCtrl', function($scope, $cordovaBarcodeScanner, $ionicPop
            if(allStops[index].id == id){
              var stop = allStops[index];
              found = true;
-             $state.go('stop', {stopId: stop.id, stopName: stop.text || stop.name});
+             $state.go('app.stop.livedata', {stopId: stop.id});
            }
          }
          if(!found){

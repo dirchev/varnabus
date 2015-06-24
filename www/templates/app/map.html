@@ -1,0 +1,45 @@
+<ion-view title="Карта" cache-view="true">
+  <ion-content style="padding-bottom: 40px;">
+    <div>
+      <map data-tap-disabled="true" style="height: 300px;" zoom="15" center="[43.2056, 27.91045]" min-zoom="8">
+        <marker ng-repeat="stop in filtered = ( stops | filter : search )"
+          on-click="selectMapStop(stop)"
+          position="[{{ stop.position.lat }}, {{ stop.position.lon }}]"
+          visible="true"
+          icon="img/icons/busstop.png">
+        </marker>
+        <marker ng-show="showPosition"
+        position="[{{ userCoords.lat }}, {{ userCoords.lng }}]"
+        visible="true"
+        icon="img/icons/male.png">
+      </marker>
+      </map>
+    </div>
+
+    <div class="card">
+      <div class="item item-input">
+        <input ng-keyup="updateMap(filtered[0])" type="text" ng-model="search" placeholder="Търси спирка">
+      </div>
+    </div>
+    
+    <div class="card" ng-hide="search">
+      <div class="item" ng-click="findMe()">
+        Намери ме
+      </div>
+    </div>
+    
+    <!-- Stop List-->
+    <div class="card" ng-show="search" 
+          style="width:95%; left:2,5%;"
+          collection-repeat="stop in stops | filter : search | limitTo: 8"
+          collection-item-width="'95%'"
+          collection-item-height="'57'">
+        <ion-item
+          ui-sref="app.stop.livedata({stopId: stop.id})">
+          {{stop.text}}
+        </ion-item>
+      </div>
+    </div>
+
+  </ion-content>
+</ion-view>
